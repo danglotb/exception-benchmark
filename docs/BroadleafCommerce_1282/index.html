@@ -1,0 +1,166 @@
+<html>
+<head>
+   <title>BroadleafCommerce Patches</title>
+   <link rel="stylesheet" type="text/css" href="../style/style.css">
+</head>
+<body>
+<md-content flex="" class="md-padding page-content _md flex"><!-- uiView: --><div ui-view="" class="ng-scope"><!-- ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 1</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,12 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            ef.setId( new Property().getValue());</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() == null) {</span>
+<span class="hljs-addition">+            ef.setEntityType( new String[0][0]);</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        }</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 2</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,12 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            ef.setId( new Property().getValue());</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        java.lang.String[] type = entity.getType();</span>
+<span class="hljs-addition">+        if (type == null) {</span>
+<span class="hljs-addition">+            type = new String[0];</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        ef.setEntityType(type[0]);</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope valid" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'" style=""><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 3</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,10 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            ef.setId( new Property().getValue());</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() != null) {</span>
+<span class="hljs-addition">+            ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        }</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope valid" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 4</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,3 +717,10 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            ef.setId( new Property().getValue());</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() == null) {</span>
+<span class="hljs-addition">+            return;</span>
+<span class="hljs-addition">+        }</span>
+         ef.setEntityType(entity.getType()[0]);
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 5</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,3 +717,7 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            ef.setId( new Property().getValue());</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+         ef.setEntityType(entity.getType()[0]);
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 6</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,3 +717,7 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        org.broadleafcommerce.openadmin.dto.Property findProperty = entity.findProperty(idProperty);</span>
+<span class="hljs-addition">+        if (findProperty == null) {</span>
+<span class="hljs-addition">+            findProperty = new Property();</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        ef.setId(findProperty.getValue());</span>
+         ef.setEntityType(entity.getType()[0]);
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 7</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,10 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) != null) {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() == null) {</span>
+<span class="hljs-addition">+            ef.setEntityType( new String[0][0]);</span>
+<span class="hljs-addition">+        } else {</span>
+<span class="hljs-addition">+            ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        }</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 8</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,10 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) != null) {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        java.lang.String[] type = entity.getType();</span>
+<span class="hljs-addition">+        if (type == null) {</span>
+<span class="hljs-addition">+            type = new String[0];</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        ef.setEntityType(type[0]);</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope valid" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 9</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,4 +717,8 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-deletion">-        ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) != null) {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() != null) {</span>
+<span class="hljs-addition">+            ef.setEntityType(entity.getType()[0]);</span>
+<span class="hljs-addition">+        }</span>
+ 
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope valid" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 10</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,3 +717,8 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) != null) {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+<span class="hljs-addition">+        if (entity.getType() == null) {</span>
+<span class="hljs-addition">+            return;</span>
+<span class="hljs-addition">+        }</span>
+         ef.setEntityType(entity.getType()[0]);
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 11</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,3 +717,5 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-deletion">-        ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) != null) {</span>
+<span class="hljs-addition">+            ef.setId(entity.findProperty(idProperty).getValue());</span>
+<span class="hljs-addition">+        }</span>
+         ef.setEntityType(entity.getType()[0]);
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --><section layout-margin="" class="execution md-whiteframe-z1 panel-widget layout-margin ng-scope valid" ng-class="{valid: execution.result.success}" ng-repeat="execution in vm.tableData.executions | orderBy:'perplexity'"><md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar _md md-custom-theme _md-toolbar-transitions"><div class="md-toolbar-tools"><h3 class="panel-widget-tittle ng-binding">Execution 12</h3><span flex="" class="flex"></span></div></md-toolbar><md-content layout="row" layout-align="left center" class="_md layout-align-start-center layout-row"><pre hljs="" hljs-source="execution.diff" hljs-language="diff"><pre><code class="hljs diff"><span class="hljs-header">--- /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-header">+++ /org/broadleafcommerce/openadmin/web/service/FormBuilderServiceImpl.java</span>
+<span class="hljs-chunk">@@ -717,2 +717,5 @@</span>
+         String idProperty = adminEntityService.getIdProperty(cmd);
+<span class="hljs-addition">+        if (entity.findProperty(idProperty) == null) {</span>
+<span class="hljs-addition">+            return;</span>
+<span class="hljs-addition">+        }</span>
+         ef.setId(entity.findProperty(idProperty).getValue());
+</code></pre></pre></md-content></section><!-- end ngRepeat: execution in vm.tableData.executions | orderBy:'perplexity' --></div></md-content>
+</body>
+</html>

@@ -1,0 +1,14 @@
+body {
+	background: #F2F2F2;
+	width: 800px;
+	margin: auto;
+}
+
+.execution .md-toolbar-tools {
+	background: #ffb6a6;
+	padding: 0px 2px;
+	margin: 0;
+}
+.execution.valid .md-toolbar-tools {
+	background: #d7ffd7;
+}
