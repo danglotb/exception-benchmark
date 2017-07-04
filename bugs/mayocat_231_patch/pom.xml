@@ -76,7 +76,8 @@
             <artifactId>npefix</artifactId>
             <version>0.4-SNAPSHOT</version>
             <exclusions>
-                <exclusion>
+                <exclusion>                <!-- Exclude JUnit since JMock draws an oldish version of JUnit and we wish to use a newer one -->
+
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
@@ -148,7 +149,7 @@
                     <dependency>
                         <groupId>fr.inria.gforge.spoon</groupId>
                         <artifactId>spoon-core</artifactId>
-                        <version>5.3.0-SNAPSHOT</version>
+                        <version>5.8.0-SNAPSHOT</version>
                         <exclusions>
                             <exclusion>
                                 <groupId>log4j</groupId>
