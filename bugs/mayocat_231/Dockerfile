@@ -19,6 +19,9 @@ RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' >> /etc/
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
+RUN gpg --keyserver pgpkeys.mit.edu --recv-key 8B48AD6246925553
+RUN gpg -a --export 8B48AD6246925553 | sudo apt-key add -
+
 RUN apt-get update
 
 RUN apt-get -y --no-install-recommends install \
@@ -39,7 +42,7 @@ RUN set -x \
     && gosu nobody true 
 
 
-ENV PG_MAJOR 9.5
+ENV PG_MAJOR 9.6
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
